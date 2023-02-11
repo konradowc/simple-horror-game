@@ -9,5 +9,6 @@ public class CameraPlayerAlignmentScript : MonoBehaviour
     void Update()
     {
         transform.position = playerPos.position;
+        transform.rotation = playerPos.rotation;
     }
 }
