@@ -56,10 +56,10 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\WorldSetup.cs" />
+    <Compile Include="Assets\MoveScript.cs" />
     <Compile Include="Assets\CameraPlayerAlignmentScript.cs" />
     <Compile Include="Assets\MouseScript.cs" />
-    <Compile Include="Assets\MoveScript.cs" />
-    <Compile Include="Assets\WorldSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
