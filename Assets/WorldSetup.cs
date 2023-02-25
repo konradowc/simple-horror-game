@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class WorldSetup : MonoBehaviour
 {
-    [SerializeField] private GameObject house;
+    [SerializeField] private GameObject house1;
+    [SerializeField] private GameObject house2;
+    [SerializeField] private GameObject house3;
+    [SerializeField] private GameObject house4;
+    [SerializeField] private GameObject house5;
 
     enum Rotation
     {
@@ -29,22 +33,21 @@ public class WorldSetup : MonoBehaviour
     void Start()
     {
         Coord[] houseLocs = new Coord[] {
-            new Coord(10, 10, Rotation.LEFT),
-            new Coord(40, 10, Rotation.LEFT),
-            new Coord(70, 10, Rotation.LEFT),
-            new Coord(110, 10, Rotation.LEFT),
+            new Coord(10, 10, Rotation.RIGHT),
+            new Coord(25, 10, Rotation.RIGHT),
+            new Coord(15, -10, Rotation.LEFT),
 
-            new Coord(10, 50, Rotation.RIGHT),
-            new Coord(40, 50, Rotation.RIGHT),
-            new Coord(70, 50, Rotation.RIGHT),
-            new Coord(110, 50, Rotation.RIGHT),
+            new Coord(60, 0, Rotation.LEFT),
+
+            new Coord(-30, 50, Rotation.RIGHT),
+            new Coord(-15, 50, Rotation.RIGHT)
         };
 
         // generate houses on map
         GameObject go;
         for(int i = 0; i < houseLocs.Length; i++)
         {
-            go = Instantiate(house, new Vector3(houseLocs[i].x, 15, houseLocs[i].z), transform.rotation);
+            go = Instantiate(house1, new Vector3(houseLocs[i].x, 15, houseLocs[i].z), transform.rotation);
             go.transform.localScale = new Vector3(40, 40, 40);
 
             if (houseLocs[i].rot == Rotation.RIGHT)
