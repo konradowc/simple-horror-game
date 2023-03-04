@@ -15,7 +15,7 @@ public class GameFlow : MonoBehaviour
 
     void Start()
     {
-        
+        //Events.events.MonsterSpawn(); // spawn the monster
     }
 
     // Update is called once per frame

@@ -27,6 +27,21 @@ public class Events : MonoBehaviour
     public event Action onNewspaperGet;
     public void NewspaperGet()
     {
-        if (onNewspaperGet!= null) onNewspaperGet();
+        if (onNewspaperGet != null) onNewspaperGet();
+
+        if (GameFlow.game.newspaperCount == 1) 
+            MonsterSpawn();
+    }
+
+
+
+    /*
+     * monster events
+     */
+
+    public event Action onMonsterSpawn;
+    public void MonsterSpawn()
+    {
+        if(onMonsterSpawn != null) onMonsterSpawn();
     }
 }
