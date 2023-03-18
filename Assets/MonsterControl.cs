@@ -12,20 +12,33 @@ public class MonsterControl : MonoBehaviour
     [SerializeField] private int monsterSpeed = 4;
 
     private GameObject monster1;
-    private bool alive = false;
+    private State monsterState;
 
     private Vector3 targetPos;
+
+    private enum State
+    {
+        PAUSED,
+        WALKING,
+        CHASING
+    }
 
     void Start()
     {
         Events.events.onMonsterSpawn += monsterSpawn;
+
+        monsterState = State.PAUSED;
     }
 
     private void Update()
     {
-        if(alive)
+        if(monsterState == State.WALKING)
         {
             monsterRegularMove();
+        }
+        else if(monsterState == State.CHASING)
+        {
+            monsterChaseMove();
         }
     }
 
@@ -36,7 +49,7 @@ public class MonsterControl : MonoBehaviour
         targetPos = monster1.transform.position; // so that it will choose a new position to go to
 
         monster1.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        alive = true;
+        monsterState = State.WALKING;
     }
 
     private void monsterRegularMove()
@@ -53,6 +66,11 @@ public class MonsterControl : MonoBehaviour
             monster1.transform.position = new Vector3(monster1.transform.position.x + monsterSpeed * Time.deltaTime * posChange.x,
                     monster1.transform.position.y, monster1.transform.position.z + monsterSpeed * Time.deltaTime * posChange.y);
         }
+    }
+
+    private void monsterChaseMove()
+    {
+
     }
 
     private Vector2 getChangeInPos()

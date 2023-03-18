@@ -1102,6 +1102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1080124189}
   speed: 5
+  theGround:
+    serializedVersion: 2
+    m_Bits: 23
 --- !u!143 &1080124189
 CharacterController:
   m_ObjectHideFlags: 0
