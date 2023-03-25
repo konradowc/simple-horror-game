@@ -13,15 +13,20 @@ public class MoveScript : MonoBehaviour
 
     void Update()
     {
-        float xMov = Input.GetAxis("Horizontal"); // pressing a or d or <- or ->
-        float zMov = Input.GetAxis("Vertical"); // pressing w or s or /\ or \/
+        float xMov = 0;
+        float zMov = 0;
+        xMov = Input.GetAxis("Horizontal"); // pressing a or d or <- or ->
+        zMov = Input.GetAxis("Vertical"); // pressing w or s or /\ or \/
 
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f, theGround);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.6f, theGround);
 
         Vector3 move = transform.right * xMov + transform.forward * zMov;
-        controller.Move(move * Time.deltaTime * speed);
-
         if(!isGrounded)
-            controller.transform.position = new Vector3(controller.transform.position.x, controller.transform.position.y - 0.1f, controller.transform.position.z);
+        {
+            move -= transform.up * 2;
+            Debug.Log("not grounded");
+        }
+
+        controller.Move(move * Time.deltaTime * speed);
     }
 }
