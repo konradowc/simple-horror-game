@@ -13,13 +13,22 @@ public class MonsterControl : MonoBehaviour
 
     private GameObject monster1;
     private State monsterState;
+    private double idleTimer = 0;
 
-    private Vector3 targetPos;
+    private Vector2[] allPosses = {
+        new Vector2(0, 0),
+        new Vector2(20, 0),
+        new Vector2(20, 20),
+        new Vector2(20, 50),
+        new Vector2(50, 50)
+    };
+    private Vector2 targetPos;
 
     private enum State
     {
         PAUSED,
         WALKING,
+        IDLE,
         CHASING
     }
 
@@ -54,7 +63,23 @@ public class MonsterControl : MonoBehaviour
 
     private void monsterRegularMove()
     {
-        if(targetPos == monster1.transform.position)
+        if(targetPos.x == monster1.transform.position.x && targetPos.y == monster1.transform.position.y)
+        {
+            if (idleTimer == 0)
+            {
+                monsterState = State.IDLE;
+            }
+
+            if (idleTimer <= 2)
+                idleTimer += Time.deltaTime;
+            else
+            {
+                idleTimer = 0;
+                monsterState = State.WALKING;
+            }
+        }
+
+        //if(targetPos == monster1.transform.position)
         {
             targetPos = new Vector3(monster1.transform.position.x + Random.Range(0, 20),
              monster1.transform.position.y, monster1.transform.position.z + Random.Range(0, 20));
