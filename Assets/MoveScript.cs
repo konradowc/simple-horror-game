@@ -5,11 +5,21 @@ using UnityEngine;
 public class MoveScript : MonoBehaviour
 {
     public CharacterController controller;
+    public GameObject player;
 
-    public float speed = 5f;
+    public float walkSpeed = 5f;
+    public float runSpeed = 10f;
+    private float speed;
 
-    private bool isGrounded;
+    public float playerHeight = 2.0f;
+
+    private RaycastHit hit;
     [SerializeField] private LayerMask theGround;
+
+    private void Start()
+    {
+        player.transform.position = new Vector3(300, 5, 290);
+    }
 
     void Update()
     {
@@ -17,15 +27,15 @@ public class MoveScript : MonoBehaviour
         float zMov = 0;
         xMov = Input.GetAxis("Horizontal"); // pressing a or d or <- or ->
         zMov = Input.GetAxis("Vertical"); // pressing w or s or /\ or \/
-
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.6f, theGround);
-
         Vector3 move = transform.right * xMov + transform.forward * zMov;
-        if(!isGrounded)
-        {
-            move -= transform.up * 2;
-            Debug.Log("not grounded");
-        }
+
+        Physics.Raycast(transform.position + move, Vector3.down, out hit, theGround); // hit.distance stores distance
+        move += Vector3.up * (playerHeight - hit.distance);
+
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            speed = runSpeed;
+        else
+            speed = walkSpeed;
 
         controller.Move(move * Time.deltaTime * speed);
     }

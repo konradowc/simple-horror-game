@@ -81,15 +81,15 @@ public class MonsterControl : MonoBehaviour
 
         //if(targetPos == monster1.transform.position)
         {
-            targetPos = new Vector3(monster1.transform.position.x + Random.Range(0, 20),
-             monster1.transform.position.y, monster1.transform.position.z + Random.Range(0, 20));
+           // targetPos = new Vector3(monster1.transform.position.x + Random.Range(0, 20),
+           //  monster1.transform.position.y, monster1.transform.position.z + Random.Range(0, 20));
         }
-        else
+        //else
         {
-            Vector2 posChange = getChangeInPos();
+           // Vector2 posChange = getChangeInPos();
 
-            monster1.transform.position = new Vector3(monster1.transform.position.x + monsterSpeed * Time.deltaTime * posChange.x,
-                    monster1.transform.position.y, monster1.transform.position.z + monsterSpeed * Time.deltaTime * posChange.y);
+           // monster1.transform.position = new Vector3(monster1.transform.position.x + monsterSpeed * Time.deltaTime * posChange.x,
+                   // monster1.transform.position.y, monster1.transform.position.z + monsterSpeed * Time.deltaTime * posChange.y);
         }
     }
 
@@ -101,7 +101,7 @@ public class MonsterControl : MonoBehaviour
     private Vector2 getChangeInPos()
     {
         float bigX = targetPos.x - monster1.transform.position.x;
-        float bigY = targetPos.z - monster1.transform.position.z;
+        float bigY = 0; // targetPos.z - monster1.transform.position.z;
         float vectorLength = Mathf.Sqrt(bigX * bigY + bigY * bigY);
 
         // normalize the vector (divide by length)

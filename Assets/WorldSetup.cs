@@ -1,67 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldSetup : MonoBehaviour
 {
-    [SerializeField] private GameObject house1;
-    [SerializeField] private GameObject house2;
-    [SerializeField] private GameObject house3;
-    [SerializeField] private GameObject house4;
-    [SerializeField] private GameObject house5;
+    [SerializeField] private GameObject tree1;
+    [SerializeField] private GameObject tree2;
+    [SerializeField] private GameObject tree3;
+    [SerializeField] private GameObject tree4;
 
-    enum Rotation
-    {
-        LEFT, RIGHT, UP, DOWN
-    }
+    [SerializeField] private float treeHeight = 0.0f;
 
-    struct Coord
-    {
-        public float x;
-        public float z;
+    private GameObject[] treeArray;
 
-        public Rotation rot;
-
-        public Coord(float intX, float intZ, Rotation rotation)
-        {
-            this.x = intX;
-            this.z = intZ;
-            this.rot = rotation;
-        }
-    }
+    [SerializeField] private LayerMask theGround;
 
     void Start()
     {
-        Coord[] houseLocs = new Coord[] {
-            new Coord(10, 10, Rotation.RIGHT),
-            new Coord(25, 10, Rotation.RIGHT),
-            new Coord(15, -10, Rotation.LEFT),
-
-            new Coord(60, 0, Rotation.LEFT),
-
-            new Coord(-30, 50, Rotation.RIGHT),
-            new Coord(-15, 50, Rotation.RIGHT)
-        };
-
-        // generate houses on map
-        GameObject go;
-        for(int i = 0; i < houseLocs.Length; i++)
-        {
-            go = Instantiate(house1, new Vector3(houseLocs[i].x, 15, houseLocs[i].z), transform.rotation);
-            go.transform.localScale = new Vector3(40, 40, 40);
-
-            if (houseLocs[i].rot == Rotation.RIGHT)
-            {
-                go.transform.Rotate(0.0f, 180.0f, 0.0f, Space.Self);
-                go.transform.localPosition = new Vector3(go.transform.position.x - 70, go.transform.position.y, go.transform.position.z);
-            }
-        }
-
+        treeArray = new GameObject[] { tree1, tree2, tree3, tree4 };
+        MakeBackgroundForest(100, 500, 210, 260);
     }
 
-    // Update is called once per frame
-    void Update()
+    void MakeBackgroundForest(int startXPos, int endXPos, int startZPos, int endZPos)
     {
+        GameObject go;
+        RaycastHit hit;
+
+        int treeCounter = 0;
+        for (int i = startXPos; i < endXPos; i+=10)
+        {
+            for(int j = startZPos; j < endZPos; j+=20)
+            {
+                go = Instantiate(treeArray[treeCounter], new Vector3(i + UnityEngine.Random.Range(-1,1), 15, j + UnityEngine.Random.Range(-1, 1)), transform.rotation);
+                go.transform.Rotate(0.0f, UnityEngine.Random.Range(0, 360), 0.0f, Space.Self); // rotates by random amount
+
+                //Physics.Raycast(go.transform.position, Vector3.down, out hit, theGround); // hit.distance stores distance
+                //Debug.Log(hit.distance);
+                //go.transform.position -= Vector3.up * (treeHeight - hit.distance);
+                go.transform.position = new Vector3(go.transform.position.x, 0, go.transform.position.z);
+
+                treeCounter++;
+                if (treeCounter == 4)
+                    treeCounter = 0;
+            }
+        }
+        
         
     }
 }
