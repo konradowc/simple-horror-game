@@ -12,6 +12,10 @@ public class Events : MonoBehaviour
         events = this;
     }
 
+    /*
+     * Newspaper/house events
+     */
+
     public event Action onEnterDoor;
     public void EnterDoor() // this method is accessed with the singleton reference, which then calls the action AKA calls onThroughPipe(), which broadcasts the action and the listeners get it
     {
@@ -35,7 +39,7 @@ public class Events : MonoBehaviour
 
 
     /*
-     * monster events
+     * Monster events
      */
 
     public event Action onMonsterSpawn;
@@ -43,5 +47,21 @@ public class Events : MonoBehaviour
     {
         Debug.Log("Spawning monster");
         if (onMonsterSpawn != null) onMonsterSpawn();
+    }
+
+    /*
+     * Gameflow events
+     */
+
+    public event Action onBeginningScene;
+    public void BeginningScene()
+    {
+        if(onBeginningScene != null) onBeginningScene();
+    }
+
+    public event Action onRegularScene;
+    public void RegularScene()
+    {
+        if (onRegularScene != null) onRegularScene();
     }
 }

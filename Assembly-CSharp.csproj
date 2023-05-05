@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\HouseScript.cs" />
+    <Compile Include="Assets\CarScript.cs" />
     <Compile Include="Assets\WorldSetup.cs" />
     <Compile Include="Assets\MoveScript.cs" />
     <Compile Include="Assets\GameFlow.cs" />
