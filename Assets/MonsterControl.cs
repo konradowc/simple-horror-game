@@ -16,13 +16,22 @@ public class MonsterControl : MonoBehaviour
     private double idleTimer = 0;
 
     private Vector2[] allPosses = {
-        new Vector2(0, 0),
-        new Vector2(20, 0),
-        new Vector2(20, 20),
-        new Vector2(20, 50),
-        new Vector2(50, 50)
+        new Vector2(296, 434),
+        new Vector2(260, 454),
+        new Vector2(287, 480),
+        new Vector2(322, 500),
+        new Vector2(384, 515),
+        new Vector2(378, 523),
+        new Vector2(380, 551),
+        new Vector2(407, 552),
+        new Vector2(432, 561)
     };
-    private Vector2 targetPos;
+    private int targetPosIndex;
+
+    public float monsterHeight = 5.0f;
+
+    private RaycastHit hit;
+    [SerializeField] private LayerMask theGround;
 
     private enum State
     {
@@ -37,6 +46,8 @@ public class MonsterControl : MonoBehaviour
         Events.events.onMonsterSpawn += monsterSpawn;
 
         monsterState = State.PAUSED;
+
+        monsterSpawn();
     }
 
     private void Update()
@@ -54,8 +65,8 @@ public class MonsterControl : MonoBehaviour
     private void monsterSpawn()
     {
         Debug.Log("Spawning monster");
-        monster1 = Instantiate(monsterPrefab, new Vector3(0, 0, 0), transform.rotation);
-        targetPos = monster1.transform.position; // so that it will choose a new position to go to
+        targetPosIndex = Random.Range(0, allPosses.Length);
+        monster1 = Instantiate(monsterPrefab, allPosses[targetPosIndex], transform.rotation);
 
         monster1.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         monsterState = State.WALKING;
@@ -63,51 +74,37 @@ public class MonsterControl : MonoBehaviour
 
     private void monsterRegularMove()
     {
-        if(targetPos.x == monster1.transform.position.x && targetPos.y == monster1.transform.position.y)
+        if (allPosses[targetPosIndex].x == Math.Round(monster1.transform.position.x) && allPosses[targetPosIndex].y == Math.Round(monster1.transform.position.z))
         {
-            if (idleTimer == 0)
+            if(targetPosIndex == 0 || (targetPosIndex < allPosses.Length-1 && Random.Range(0, 2) == 1))
             {
-                monsterState = State.IDLE;
+                targetPosIndex++;
             }
-
-            if (idleTimer <= 2)
-                idleTimer += Time.deltaTime;
             else
             {
-                idleTimer = 0;
-                monsterState = State.WALKING;
+                targetPosIndex--;
             }
-        }
 
-        //if(targetPos == monster1.transform.position)
-        {
-           // targetPos = new Vector3(monster1.transform.position.x + Random.Range(0, 20),
-           //  monster1.transform.position.y, monster1.transform.position.z + Random.Range(0, 20));
+            // make monster face the right direction
+            //monster1.transform.
         }
-        //else
+        else
         {
-           // Vector2 posChange = getChangeInPos();
+            // move the monster
+            float xMov = (allPosses[targetPosIndex].x - monster1.transform.position.x);
+            float zMov = (allPosses[targetPosIndex].y - monster1.transform.position.z);
+            Vector3 moveVect = new Vector3(xMov, 0, zMov);
+            moveVect = moveVect.normalized;
 
-           // monster1.transform.position = new Vector3(monster1.transform.position.x + monsterSpeed * Time.deltaTime * posChange.x,
-                   // monster1.transform.position.y, monster1.transform.position.z + monsterSpeed * Time.deltaTime * posChange.y);
+            Physics.Raycast(transform.position + moveVect, Vector3.down, out hit, theGround); // hit.distance stores distance
+            moveVect += Vector3.up * (monsterHeight - hit.distance);
+
+            monster1.transform.position = new Vector3(monster1.transform.position.x + moveVect.x, monster1.transform.position.y + moveVect.y, monster1.transform.position.z + moveVect.z);
         }
     }
 
     private void monsterChaseMove()
     {
 
-    }
-
-    private Vector2 getChangeInPos()
-    {
-        float bigX = targetPos.x - monster1.transform.position.x;
-        float bigY = 0; // targetPos.z - monster1.transform.position.z;
-        float vectorLength = Mathf.Sqrt(bigX * bigY + bigY * bigY);
-
-        // normalize the vector (divide by length)
-        float changeX = bigX / vectorLength;
-        float changeY = bigY / vectorLength;
-
-        return new Vector2(changeX, changeY);
     }
 }

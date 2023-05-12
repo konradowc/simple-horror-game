@@ -491,6 +491,10 @@ MonoBehaviour:
   monsterPrefab: {fileID: 6749356167040747868, guid: 07bdf45ac5afe4b4b9e8387a8ed94dd1, type: 3}
   animator: {fileID: 0}
   monsterSpeed: 4
+  monsterHeight: 2
+  theGround:
+    serializedVersion: 2
+    m_Bits: 23
 --- !u!1001 &251938925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3070,15 +3074,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1666045496044888800, guid: 782461597edbafc4fa03ac8e71d132c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 296.6
+      value: 432.4
       objectReference: {fileID: 0}
     - target: {fileID: 1666045496044888800, guid: 782461597edbafc4fa03ac8e71d132c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6499996
+      value: 18.79
       objectReference: {fileID: 0}
     - target: {fileID: 1666045496044888800, guid: 782461597edbafc4fa03ac8e71d132c5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 287.04
+      value: 561.1
       objectReference: {fileID: 0}
     - target: {fileID: 1666045496044888800, guid: 782461597edbafc4fa03ac8e71d132c5, type: 3}
       propertyPath: m_LocalRotation.w
