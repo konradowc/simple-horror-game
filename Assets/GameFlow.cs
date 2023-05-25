@@ -7,7 +7,7 @@ public class GameFlow : MonoBehaviour
     public static GameFlow game; // singleton
 
     public uint newspaperCount = 0;
-    public int carSpeed = 50;
+    public int carSpeed = 150;
 
     private void Awake()
     {
@@ -16,7 +16,8 @@ public class GameFlow : MonoBehaviour
 
     void Start()
     {
-        Invoke("StartBegScene", 0.3f);
+        //Invoke("StartBegScene", 0.3f);
+        Invoke("StartRegScene", 0.5f);
         
         //Events.events.MonsterSpawn(); // spawn the monster
     }

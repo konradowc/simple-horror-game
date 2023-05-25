@@ -18,7 +18,10 @@ public class MainUIScript : MonoBehaviour
 
     private void updateUI()
     {
+        if(GameFlow.game.newspaperCount == 5)
+            GetComponent<TMPro.TextMeshProUGUI>().text = "Newspapers: 5/5   Get to your car!";
+
         GetComponent<TMPro.TextMeshProUGUI>().text =
-            "Newspapers: " + GameFlow.game.newspaperCount + "/6";
+            "Newspapers: " + GameFlow.game.newspaperCount + "/5";
     }
 }

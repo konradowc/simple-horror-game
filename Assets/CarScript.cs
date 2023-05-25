@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarScript : MonoBehaviour
 {
@@ -11,8 +13,26 @@ public class CarScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Events.events.onBeginningScene += FirstScene;
-        Events.events.onRegularScene += SecondScene;
+        //Events.events.onBeginningScene += FirstScene;
+        //Events.events.onRegularScene += SecondScene;
+        car.transform.position = new Vector3(300, 0.65f, 287);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (GameFlow.game.newspaperCount == 5)
+            {
+                Debug.Log("End of game!");
+                //Application.Quit(); // does not work
+                //SceneScript.scenes.Win();
+                SceneManager.LoadScene("Won");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+
+        }
     }
 
     void FirstScene()
@@ -27,6 +47,7 @@ public class CarScript : MonoBehaviour
         isFirstScene = true;
     }
     // Update is called once per frame
+    /*
     void Update()
     {
         if(isFirstScene)
@@ -38,4 +59,5 @@ public class CarScript : MonoBehaviour
             }
         }
     }
+    */
 }

@@ -361,6 +361,7 @@
 "Assets/MonsterControl.cs"
 "Assets/MouseScript.cs"
 "Assets/MoveScript.cs"
+"Assets/SceneScript.cs"
 "Assets/WorldSetup.cs"
 -langversion:9.0
 
