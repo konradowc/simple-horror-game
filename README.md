@@ -1,5 +1,5 @@
-# cs-47-project
+A simple horror game.
 
-2/10: I think I added too many files but that is ok
+You are a newspaper delivery driver, and have made it to a remote part of town with 5 newspapers to deliver. However, a monster has been spotted in the area; deliver the newspapers before the monster catches you, or you might meet a gruesome end...
 
-2/24: Milestone #1!
+Made using the Unity game engine.
