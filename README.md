@@ -1,4 +1,4 @@
-#simple-horror-game
+# simple-horror-game
 
 A simple horror game.
 
